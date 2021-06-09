@@ -15,12 +15,14 @@ namespace TaxiOperator
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+
+        #region Ctor
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
-
-        public IConfiguration Configuration { get; }
+        #endregion
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -53,15 +55,12 @@ namespace TaxiOperator
             {
                 app.UseDeveloperExceptionPage();
             }
-
             app.UseRouting();
-
             app.UseAuthentication();
             app.UseAuthorization();
-
             app.UseHttpsRedirection();
-
-            app.UseEndpoints(endpoints => {
+            app.UseEndpoints(endpoints =>
+            {
                 endpoints.MapControllers();
             });
             //app.UseEndpoints(endpoints =>

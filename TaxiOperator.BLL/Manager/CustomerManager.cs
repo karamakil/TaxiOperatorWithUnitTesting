@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using TaxiOperator.BLL.DAL;
 
 namespace TaxiOperator.BLL.Manager
@@ -19,7 +17,28 @@ namespace TaxiOperator.BLL.Manager
             new Customer().SetVipCustomer(id);
         }
 
-        #endregion
+        public static List<Customer> GetList()
+        {
+            return new Customer().GetList();
+        }
 
+        public static void Save(Customer customer)
+        {
+            if (customer.Id > 0)
+            {
+                customer.Update();
+            }
+            else
+            {
+                customer.Insert();
+            }
+        }
+
+        public static void Delete(int id)
+        {
+            new Customer().Delete(id);
+        }
+
+        #endregion
     }
 }

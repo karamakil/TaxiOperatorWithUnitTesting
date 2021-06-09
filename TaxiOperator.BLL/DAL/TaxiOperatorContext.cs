@@ -61,7 +61,6 @@ namespace TaxiOperator.BLL.DAL
             modelBuilder.Entity<Cab>(entity =>
             {
                 entity.ToTable("Cab");
-
                 entity.Property(e => e.Name).HasMaxLength(50);
             });
 

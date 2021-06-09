@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using TaxiOperator.BLL.Interface;
 using System.Linq;
+using TaxiOperator.BLL.Interface;
 
 namespace TaxiOperator.BLL.DAL
 {
     public partial class User : IDbObject<User>
     {
         #region Public Methods
-
         public User Find(string userName, string password)
         {
             using (var ctx = new TaxiOperatorContext())
@@ -23,12 +21,7 @@ namespace TaxiOperator.BLL.DAL
             throw new NotImplementedException();
         }
 
-        public void Delete()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void GetList()
+        public List<User> GetList()
         {
             throw new NotImplementedException();
         }
@@ -49,6 +42,5 @@ namespace TaxiOperator.BLL.DAL
         }
 
         #endregion
-
     }
 }

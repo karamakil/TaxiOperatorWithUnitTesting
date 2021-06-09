@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using TaxiOperator.BLL.Interface;
 using TaxiOperator.BLL.Models;
@@ -10,6 +11,7 @@ namespace TaxiOperator.Controllers
     public class AccountController : ControllerBase
     {
         private readonly ITokenService tokenService;
+
         #region ctor
 
         public AccountController(ITokenService tokenService)
@@ -22,6 +24,7 @@ namespace TaxiOperator.Controllers
         #region Login
 
         [HttpPost("login")]
+        [AllowAnonymous]
         public ActionResult<UserModel> Login(UserModel userModel)
         {
             try

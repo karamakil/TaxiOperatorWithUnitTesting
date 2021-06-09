@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
+using TaxiOperator.BLL.DAL;
 using TaxiOperator.BLL.Manager;
 
 namespace TaxiOperator.Controllers
@@ -10,15 +12,18 @@ namespace TaxiOperator.Controllers
     [Authorize]
     public class DataController : ControllerBase
     {
-        
-        //[HttpGet("GetRandom")]
+
         [HttpGet]
-        //[Authorize(Roles = "User")]
-        public IActionResult GetRandom()
+        public IActionResult GetCustomerList()
         {
             try
             {
-                return Ok(CustomerManager.GetRandom());
+                var retLst = JsonConvert.SerializeObject(CustomerManager.GetList(), Formatting.Indented,
+                     new JsonSerializerSettings()
+                     {
+                         ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                     });
+                return Ok(retLst);
             }
             catch (Exception ex)
             {
@@ -26,12 +31,12 @@ namespace TaxiOperator.Controllers
             }
         }
 
-        [HttpPost("SetVip")]
-        public IActionResult SetVip(int id)
+        [HttpDelete("{id}")]
+        public IActionResult DeleteCustomer(int id)
         {
             try
             {
-                CustomerManager.SetVip(id);
+                CustomerManager.Delete(id);
                 return Ok();
             }
             catch (Exception ex)
@@ -40,19 +45,23 @@ namespace TaxiOperator.Controllers
             }
         }
 
-        [HttpGet("GetCabDriverShifts")]
-        public IActionResult GetCabDriverShifts()
+        [HttpPost]
+        public IActionResult SaveCustomer(Customer customer)
         {
             try
             {
-                return Ok(CabDriverManager.List());
+                if (ModelState.IsValid)
+                {
+                    CustomerManager.Save(customer);
+                    return Ok();
+                }
+                return Unauthorized();
             }
             catch (Exception ex)
             {
                 return BadRequest(ex);
             }
         }
-
 
     }
 }

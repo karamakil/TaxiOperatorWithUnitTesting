@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using TaxiOperator.BLL.Interface;
 
@@ -7,6 +9,14 @@ namespace TaxiOperator.BLL.DAL
     public partial class Customer : IDbObject<Customer>
     {
         #region Public Methods
+
+        public List<Customer> GetList()
+        {
+            using (var ctx = new TaxiOperatorContext())
+            {
+                return ctx.Customers.Include(x => x.Addresses).ToList();
+            }
+        }
 
         public Customer GetRandom()
         {
@@ -38,29 +48,31 @@ namespace TaxiOperator.BLL.DAL
 
         public void Insert()
         {
-            throw new NotImplementedException();
-        }
-
-        public void GetList()
-        {
-            throw new NotImplementedException();
+            using (var ctx = new TaxiOperatorContext())
+            {
+                ctx.Customers.Add(this);
+                ctx.SaveChanges();
+            }
         }
 
         public Customer Find(int id)
         {
-            throw new NotImplementedException();
+            using (var ctx = new TaxiOperatorContext())
+            {
+                return ctx.Customers.FirstOrDefault(x => x.Id == id);
+            }
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            using (var ctx = new TaxiOperatorContext())
+            {
+                var param = new Customer() { Id = (int)id };
+                ctx.Customers.Attach(param);
+                ctx.Customers.Remove(param);
+                ctx.SaveChanges();
+            }
         }
-
-        public void Delete()
-        {
-            throw new NotImplementedException();
-        }
-
 
         #endregion
 

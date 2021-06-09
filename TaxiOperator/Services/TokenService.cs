@@ -14,17 +14,22 @@ namespace TaxiOperator.Services
     {
         private readonly SymmetricSecurityKey key;
 
+        #region ctor
+
         public TokenService(IConfiguration config)
         {
             key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"]));
         }
+
+        #endregion
+
+        #region TokenCreation
 
         public string CreateToken(User user)
         {
             var claims = new List<Claim>(){
                 new Claim(JwtRegisteredClaimNames.NameId, user.Id.ToString()),
                 new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName),
-                new Claim(ClaimTypes.Role, "Admin"),
             };
             var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
             var tokenDescriptor = new SecurityTokenDescriptor
@@ -38,7 +43,7 @@ namespace TaxiOperator.Services
             return tokenHandler.WriteToken(token);
         }
 
-
+        #endregion
 
     }
 }

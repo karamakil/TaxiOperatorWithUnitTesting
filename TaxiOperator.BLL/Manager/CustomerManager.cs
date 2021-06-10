@@ -22,6 +22,11 @@ namespace TaxiOperator.BLL.Manager
             return new Customer().GetList();
         }
 
+        public static Customer GetById(int id)
+        {
+            return new Customer().Find(id);
+        }
+
         public static void Save(Customer customer)
         {
             if (customer.Id > 0)
@@ -36,7 +41,11 @@ namespace TaxiOperator.BLL.Manager
 
         public static void Delete(int id)
         {
-            new Customer().Delete(id);
+            var customer = GetById(id);
+            if (customer != null)
+            {
+                customer.Delete();
+            }
         }
 
         #endregion

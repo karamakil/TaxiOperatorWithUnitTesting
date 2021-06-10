@@ -63,13 +63,12 @@ namespace TaxiOperator.BLL.DAL
             }
         }
 
-        public void Delete(int id)
+        public void Delete()
         {
             using (var ctx = new TaxiOperatorContext())
             {
-                var param = new Customer() { Id = (int)id };
-                ctx.Customers.Attach(param);
-                ctx.Customers.Remove(param);
+                ctx.Customers.Attach(this);
+                ctx.Customers.Remove(this);
                 ctx.SaveChanges();
             }
         }

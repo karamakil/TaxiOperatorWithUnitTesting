@@ -18,12 +18,30 @@ namespace TaxiOperator.Controllers
         {
             try
             {
-                var retLst = JsonConvert.SerializeObject(CustomerManager.GetList(), Formatting.Indented,
+                var lst = CustomerManager.GetList();
+                if (lst.Count > 0)
+                {
+                    var retLst = JsonConvert.SerializeObject(CustomerManager.GetList(), Formatting.Indented,
                      new JsonSerializerSettings()
                      {
                          ReferenceLoopHandling = ReferenceLoopHandling.Ignore
                      });
-                return Ok(retLst);
+                    return Ok(retLst);
+                }
+                return Ok(null);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult<Customer> GetById(int id)
+        {
+            try
+            {
+                return Ok(CustomerManager.GetById(id));
             }
             catch (Exception ex)
             {
@@ -46,7 +64,7 @@ namespace TaxiOperator.Controllers
         }
 
         [HttpPost]
-        public IActionResult SaveCustomer(Customer customer)
+        public ActionResult SaveCustomer(Customer customer)
         {
             try
             {
@@ -55,7 +73,7 @@ namespace TaxiOperator.Controllers
                     CustomerManager.Save(customer);
                     return Ok();
                 }
-                return Unauthorized();
+                return BadRequest(ModelState);
             }
             catch (Exception ex)
             {

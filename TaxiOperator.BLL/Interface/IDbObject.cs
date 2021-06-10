@@ -8,6 +8,6 @@ namespace TaxiOperator.BLL.Interface
         List<T> GetList();
         T Find(int id);
         void Update();
-        void Delete(int id);
+        void Delete();
     }
 }

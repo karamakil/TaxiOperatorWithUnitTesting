@@ -9,7 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaxiOperator.BLL", "TaxiOpe
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation and backup", "Documentation and backup", "{A18DE83C-47E3-44E1-919E-04686FFDD791}"
 	ProjectSection(SolutionItems) = preProject
-		Documentation and backup\Documentation.docx = Documentation and backup\Documentation.docx
+		Documentation and backup\SolutionDocumentation.docx = Documentation and backup\SolutionDocumentation.docx
+		Documentation and backup\TaxiOperator- API Documentation.docx = Documentation and backup\TaxiOperator- API Documentation.docx
 		Documentation and backup\TaxiOperator.bak = Documentation and backup\TaxiOperator.bak
 		Documentation and backup\TaxiOperator.postman_collection.json = Documentation and backup\TaxiOperator.postman_collection.json
 	EndProjectSection
